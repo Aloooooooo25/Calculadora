@@ -32,10 +32,6 @@
   }
   </script>
 
-  <!-- (Opcional) AdSense
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=SEU_CLIENT_ID" crossorigin="anonymous"></script>
-  -->
-
   <!-- Lib de gráficos -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -59,7 +55,7 @@
     @media (max-width:700px){.form-grid{grid-template-columns:1fr}}
     .field{display:flex;flex-direction:column;gap:8px}
     .label{font-size:13px;color:var(--muted)}
-    input[type=number],select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card-2);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
+    input[type=text], input[type=number], select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card-2);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
     input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,179,126,.18)}
     .actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid var(--border);background:var(--card-2);color:var(--text);padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:700;transition:transform .05s,background .2s,border .2s}
@@ -96,11 +92,11 @@
 
   <main>
     <div class="grid">
-      <!-- Texto de apresentação (ajuda o SEO) -->
+      <!-- Texto de apresentação (SEO) -->
       <section class="card">
         <div class="body">
           <h1 style="margin:0 0 8px 0">Calculadora de Juros Compostos - Completa</h1>
-          <p style="margin:0">Simule seus investimentos com precisão: informe valor inicial, aportes mensais, taxa ao mês ou ao ano e período em meses/anos. Veja gráficos de evolução, composição (juros x capital) e uma tabela mês a mês. Ferramenta gratuita da <strong>RMT</strong>.</p>
+          <p style="margin:0">Simule seus investimentos com precisão: informe valor inicial, aportes mensais, taxa ao mês ou ao ano e período em meses/anos. Veja gráficos de evolução (com linhas de Montante, Total investido e Juros acumulados), composição e tabela mês a mês. Ferramenta gratuita da <strong>RMT</strong>.</p>
         </div>
       </section>
 
@@ -109,8 +105,8 @@
         <div class="head"><h2>Parâmetros</h2></div>
         <div class="body">
           <div class="form-grid">
-            <div class="field"><label class="label" for="valorInicial">Valor inicial (R$)</label><input id="valorInicial" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex: 1000"></div>
-            <div class="field"><label class="label" for="aporteMensal">Aporte mensal (R$)</label><input id="aporteMensal" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex: 200"></div>
+            <div class="field"><label class="label" for="valorInicial">Valor inicial</label><input id="valorInicial" type="text" inputmode="numeric" placeholder="R$ 0,00"></div>
+            <div class="field"><label class="label" for="aporteMensal">Aporte mensal</label><input id="aporteMensal" type="text" inputmode="numeric" placeholder="R$ 0,00"></div>
             <div class="field"><label class="label" for="taxa">Taxa de juros (%)</label><input id="taxa" type="number" inputmode="decimal" min="0" step="0.0001" placeholder="Ex: 1"></div>
             <div class="field"><label class="label" for="taxaTipo">Tipo da taxa</label><select id="taxaTipo"><option value="mes">ao mês</option><option value="ano">ao ano</option></select></div>
             <div class="field"><label class="label" for="periodo">Período</label><input id="periodo" type="number" inputmode="numeric" min="1" step="1" value="12"></div>
@@ -144,16 +140,15 @@
         </div>
       </section>
 
-      <!-- Explicação / SEO extra -->
+      <!-- Explicação -->
       <section class="card">
         <div class="head"><h2>Como usar e como funciona</h2></div>
         <div class="body">
           <h3 style="margin:0 0 8px 0">Passo a passo</h3>
           <ol style="margin:0 0 14px 18px; padding:0">
-            <li>Informe o <strong>Valor inicial</strong>.</li>
-            <li>(Opcional) <strong>Aporte mensal</strong>.</li>
+            <li>Informe o <strong>Valor inicial</strong> e, se quiser, o <strong>Aporte mensal</strong> (ambos em R$).</li>
             <li>Defina a <strong>Taxa de juros</strong> e se é <em>ao mês</em> ou <em>ao ano</em>.</li>
-            <li>Escolha o <strong>Período</strong> em <em>meses</em> ou <em>anos</em>.</li>
+            <li>Escolha o <strong>Período</strong> e se está em <em>meses</em> ou <em>anos</em>.</li>
             <li>Selecione <strong>Momento do aporte</strong>: <em>início</em> (aporta e rende no mês) ou <em>fim</em> (rende e aporta depois).</li>
             <li>Clique em <strong>Calcular</strong>.</li>
           </ol>
@@ -162,21 +157,8 @@
           <ul style="margin:0 0 14px 18px; padding:0">
             <li>Converte taxa anual para efetiva mensal: <code>(1 + i_anual)^(1/12) - 1</code>.</li>
             <li>Simula capitalização composta mês a mês.</li>
-            <li>Permite aporte no início ou no fim do mês.</li>
-            <li>Exibe montante, total investido, juros, gráficos e tabela.</li>
-          </ul>
-
-          <h3 style="margin:10px 0 8px 0">Exemplo rápido</h3>
-          <p class="notice" style="margin:0 0 8px 0">
-            Valor inicial R$ 1.000, taxa 1% ao mês, 1 mês, sem aporte → Montante: R$ 1.010,00.<br>
-            Com aporte de R$ 100 <em>no início</em> → Montante: R$ 1.111,00.<br>
-            Com aporte de R$ 100 <em>no fim</em> → Montante: R$ 1.110,00.
-          </p>
-
-          <h3 style="margin:10px 0 8px 0">Limitações</h3>
-          <ul style="margin:0 0 0 18px; padding:0">
-            <li>Não considera taxas, impostos (IR) ou variação de taxa.</li>
-            <li>Valores estimativos para fins educacionais.</li>
+            <li>Mostra no gráfico as linhas de <strong>Montante</strong>, <strong>Total investido</strong> e <strong>Juros acumulados</strong>.</li>
+            <li>Exibe montante, total investido, juros, gráficos e tabela mês a mês.</li>
           </ul>
         </div>
       </section>
@@ -187,6 +169,22 @@
   document.addEventListener('DOMContentLoaded', () => {
     const $=(s)=>document.querySelector(s);
     const brl=(v)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
+
+    // ---- Máscara BRL nos inputs de dinheiro ----
+    const moneyInputs = [$('#valorInicial'), $('#aporteMensal')];
+    function moneyFromInput(str){
+      const digits = (str||'').replace(/[^\d]/g,''); // só números
+      return (parseInt(digits||'0',10))/100;         // em reais
+    }
+    function maskMoney(e){
+      const digits = e.target.value.replace(/[^\d]/g,'');
+      const n = (parseInt(digits||'0',10))/100;
+      e.target.value = brl(n);
+    }
+    moneyInputs.forEach(inp=>{
+      inp.addEventListener('input', maskMoney);
+      inp.addEventListener('focus', e=>e.target.select());
+    });
 
     let lineChart, pieChart;
     const el={
@@ -207,11 +205,11 @@
     };
 
     function calcular(){
-      const pv=parseFloat(el.valorInicial.value)||0;
-      const aport=parseFloat(el.aporteMensal.value)||0;
-      const nRaw=parseInt(el.periodo.value)||0;
-      const n=(el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
-      const i=efetivaMensal(el.taxa.value, el.taxaTipo.value);
+      const pv  = moneyFromInput(el.valorInicial.value);
+      const aport = moneyFromInput(el.aporteMensal.value);
+      const nRaw = parseInt(el.periodo.value)||0;
+      const n    = (el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
+      const i    = efetivaMensal(el.taxa.value, el.taxaTipo.value);
       const inicio = el.momentoAporte.value==='inicio';
       if(n<=0 || i<0){ renderResultados(0,0,0,0,[]); return; }
 
@@ -220,16 +218,10 @@
 
       for(let mes=1; mes<=n; mes++){
         const s0=saldo; let juros;
-        if(inicio){ // aporte entra e já rende
-          saldo += aport;
-          juros = saldo * i;
-          saldo += juros;
-        } else {   // rende e depois entra o aporte
-          juros = saldo * i;
-          saldo += juros + aport;
-        }
-        totalAportado += aport;
-        hist.push({mes, saldoIni:s0, aporte:aport, jurosMes:juros, saldoFim:saldo});
+        if(inicio){ saldo+=aport; juros=saldo*i; saldo+=juros; }
+        else { juros=saldo*i; saldo+=juros+aport; }
+        totalAportado+=aport;
+        hist.push({mes,saldoIni:s0,aporte:aport,jurosMes:juros,saldoFim:saldo});
       }
 
       renderResultados(saldo, totalAportado, saldo-totalAportado, n, hist);
@@ -240,25 +232,65 @@
       el.outInvestido.textContent=brl(investido);
       el.outJuros.textContent=brl(juros);
       el.outMeses.textContent=n?`${n} mês(es)`:'—';
+
+      // tabela
       el.tbody.innerHTML=hist.slice(0,480).map(r=>
         `<tr><td>${r.mes}</td><td>${brl(r.saldoIni)}</td><td>${brl(r.aporte)}</td><td>${brl(r.jurosMes)}</td><td>${brl(r.saldoFim)}</td></tr>`
       ).join('');
 
+      // séries para o gráfico de linha
+      const labels   = hist.map(r=>r.mes);
+      const montes   = hist.map(r=>r.saldoFim);
+
+      const investedSeries = [];
+      let investedSoFar = hist[0]?.saldoFim || 0; // mês 0: só o inicial
+      investedSeries.push(investedSoFar);
+      for(let k=1;k<hist.length;k++){
+        investedSoFar += hist[k].aporte; // soma aportes mês a mês
+        investedSeries.push(investedSoFar);
+      }
+      const interestSeries = montes.map((m,idx)=> Math.max(0, m - investedSeries[idx]));
+
       try{
-        const labels=hist.map(r=>r.mes), data=hist.map(r=>r.saldoFim);
         if(lineChart) lineChart.destroy();
-        lineChart=new Chart($('#evolucaoChart'),{
+        lineChart = new Chart($('#evolucaoChart'),{
           type:'line',
-          data:{labels,datasets:[{label:'Evolução do montante',data,fill:true}]},
-          options:{responsive:true,plugins:{legend:{display:true}}}
+          data:{
+            labels,
+            datasets:[
+              {label:'Montante', data: montes, fill:true},
+              {label:'Total investido', data: investedSeries, fill:false},
+              {label:'Juros acumulados', data: interestSeries, fill:false}
+            ]
+          },
+          options:{
+            responsive:true,
+            plugins:{
+              legend:{ display:true },
+              tooltip:{
+                callbacks:{
+                  label:(ctx)=> `${ctx.dataset.label}: ${brl(ctx.parsed.y)}`
+                }
+              }
+            },
+            scales:{
+              y:{
+                ticks:{ callback:(v)=> brl(v) }
+              }
+            }
+          }
         });
       }catch(e){}
+
       try{
         if(pieChart) pieChart.destroy();
-        pieChart=new Chart($('#composicaoChart'),{
+        pieChart = new Chart($('#composicaoChart'),{
           type:'doughnut',
-          data:{labels:['Total investido','Juros'],datasets:[{data:[Math.max(0,investido),Math.max(0,juros)]}]},
-          options:{responsive:true,plugins:{legend:{position:'bottom'}}}
+          data:{
+            labels:['Total investido','Juros'],
+            datasets:[{ data:[Math.max(0,investido), Math.max(0,juros)] }]
+          },
+          options:{ responsive:true, plugins:{ legend:{ position:'bottom' } } }
         });
       }catch(e){}
     }
@@ -272,27 +304,26 @@
 
     el.btnCalcular.addEventListener('click', calcular);
     el.btnLimpar.addEventListener('click', ()=>{
-      ['valorInicial','aporteMensal','taxa','periodo'].forEach(id=>document.getElementById(id).value='');
-      el.taxaTipo.value='mes'; el.periodoTipo.value='meses'; document.getElementById('momentoAporte').value='fim';
+      el.valorInicial.value=''; el.aporteMensal.value='';
+      ['taxa','periodo'].forEach(id=>document.getElementById(id).value='');
+      el.taxaTipo.value='mes'; el.periodoTipo.value='meses'; el.momentoAporte.value='fim';
       renderResultados(0,0,0,0,[]);
     });
-
     el.btnCsv.addEventListener('click', ()=>{
-      const pv=parseFloat(el.valorInicial.value)||0;
-      const aport=parseFloat(el.aporteMensal.value)||0;
-      const nRaw=parseInt(el.periodo.value)||0;
-      const n=(el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
-      const i=efetivaMensal(el.taxa.value, el.taxaTipo.value);
-      const inicio=document.getElementById('momentoAporte').value==='inicio';
+      const pv  = moneyFromInput(el.valorInicial.value);
+      const aport = moneyFromInput(el.aporteMensal.value);
+      const nRaw = parseInt(el.periodo.value)||0;
+      const n    = (el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
+      const i    = efetivaMensal(el.taxa.value, el.taxaTipo.value);
+      const inicio = el.momentoAporte.value==='inicio';
 
       let saldo=pv;
       const hist=[{mes:0,saldoIni:pv,aporte:0,jurosMes:0,saldoFim:pv}];
-
       for(let mes=1; mes<=n; mes++){
         const s0=saldo; let j;
         if(inicio){ saldo+=aport; j=saldo*i; saldo+=j; }
         else { j=saldo*i; saldo+=j+aport; }
-        hist.push({mes, saldoIni:s0, aporte:aport, jurosMes:j, saldoFim:saldo});
+        hist.push({mes,saldoIni:s0,aporte:aport,jurosMes:j,saldoFim:saldo});
       }
 
       const csv=toCsv(hist);
