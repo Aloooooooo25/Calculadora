@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aloooooooo25.github.io/Calculadora/sitemap.xml
+Sitemap: https://aloooooooo25.github.io/sitemap.xml
+
