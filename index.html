@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Calculadora de Juros Compostos - Completa</title>
-  <meta name="description" content="Simule juros compostos com aportes mensais, taxa mensal ou anual, gráficos e tabela detalhada. Ferramenta gratuita da RMT." />
+  <meta name="description" content="Simule juros compostos com aportes mensais, taxa mensal ou anual, gráficos (montante, total investido e juros) e tabela detalhada. Ferramenta gratuita da RMT." />
   <meta name="keywords" content="calculadora juros compostos, simulador de investimentos, juros compostos online, calculadora financeira, RMT" />
   <meta name="author" content="RMT" />
   <meta name="robots" content="index,follow" />
@@ -37,13 +37,13 @@
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    :root { --navy:#0b1e3d; --navy-2:#0f294f; --green:#00b37e; --green-2:#00a070; --bg:#0b1220; --card:#0f1930; --card-2:#0c1528; --text:#e6edf3; --muted:#a8b3c7; --border:#1d2b49; --shadow:0 10px 30px rgba(0,0,0,.35); }
+    :root { --navy:#0b1e3d; --green:#00b37e; --green-2:#00a070; --bg:#0b1220; --card:#0f1930; --card-2:#0c1528; --text:#e6edf3; --muted:#a8b3c7; --border:#1d2b49; --shadow:0 10px 30px rgba(0,0,0,.35); }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:radial-gradient(1200px 800px at 10% 0%,#0f1a30 0%,#0b1220 50%,#0b1220 100%);color:var(--text)}
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(11,18,32,.92),rgba(11,18,32,.6));border-bottom:1px solid var(--border)}
     .wrap{max-width:1100px;margin:0 auto;padding:18px 16px;display:flex;align-items:center;gap:14px}
 
-    /* Logo como imagem (se existir) ou fallback */
+    /* Logo com fallback */
     .logo-img{width:56px;height:auto;display:block;border-radius:12px;box-shadow:0 6px 20px rgba(0,179,126,.28);}
     @media (max-width:480px){.logo-img{ width:48px; }}
     .logo-fallback{
@@ -91,8 +91,10 @@
 <body>
   <header>
     <div class="wrap">
-      <!-- Tenta usar a imagem; se não carregar, mostra o fallback "RMT" -->
-      <img class="logo-img" src="./rmt-logo.png" alt="RMT"
+      <!-- Tenta carregar a logo; se falhar, mostra fallback "RMT" -->
+      <img class="logo-img" id="logoImg"
+           src="./rmt-logo-160-transparent.png?v=2"
+           alt="RMT"
            onerror="this.style.display='none';document.getElementById('logoFallback').style.display='grid';" />
       <div id="logoFallback" class="logo-fallback">RMT</div>
 
@@ -150,21 +152,6 @@
 
           <div class="actions" style="margin-top:10px"><button class="btn" id="btnCsv">Baixar CSV</button></div>
           <div class="notice">Conversão anual→mensal: <code>(1 + i_a)^(1/12) - 1</code>. Valores ilustrativos (ignoram taxas/IR).</div>
-        </div>
-      </section>
-
-      <!-- Explicação -->
-      <section class="card">
-        <div class="head"><h2>Como usar e como funciona</h2></div>
-        <div class="body">
-          <h3 style="margin:0 0 8px 0">Passo a passo</h3>
-          <ol style="margin:0 0 14px 18px; padding:0">
-            <li>Informe o <strong>Valor inicial</strong> e, se quiser, o <strong>Aporte mensal</strong> (ambos em R$).</li>
-            <li>Defina a <strong>Taxa de juros</strong> e se é <em>ao mês</em> ou <em>ao ano</em>.</li>
-            <li>Escolha o <strong>Período</strong> e se está em <em>meses</em> ou <em>anos</em>.</li>
-            <li>Selecione <strong>Momento do aporte</strong>: <em>início</em> (aporta e rende no mês) ou <em>fim</em> (rende e aporta depois).</li>
-            <li>Clique em <strong>Calcular</strong>.</li>
-          </ol>
         </div>
       </section>
     </div>
@@ -272,9 +259,7 @@
             responsive:true,
             plugins:{
               legend:{ display:true },
-              tooltip:{
-                callbacks:{ label:(ctx)=> `${ctx.dataset.label}: ${brl(ctx.parsed.y)}` }
-              }
+              tooltip:{ callbacks:{ label:(ctx)=> `${ctx.dataset.label}: ${brl(ctx.parsed.y)}` } }
             },
             scales:{ y:{ ticks:{ callback:(v)=> brl(v) } } }
           }
