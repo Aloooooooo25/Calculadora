@@ -3,11 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RMT — Calculadora de Juros Compostos</title>
+
+  <title>Calculadora de Juros Compostos - Completa</title>
+  <meta name="description" content="Simule facilmente juros compostos com aportes mensais, taxa mensal ou anual, gráficos e tabela detalhada. Ferramenta gratuita da RMT." />
+  <meta name="keywords" content="calculadora juros compostos, simulador de investimentos, juros compostos online, calculadora financeira, RMT" />
+  <meta name="author" content="RMT" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://aloooooooo25.github.io/Calculadora/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Calculadora de Juros Compostos - Completa" />
+  <meta property="og:description" content="Simule investimentos com ou sem aportes mensais e veja gráficos e tabela mês a mês." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aloooooooo25.github.io/Calculadora/" />
+  <meta property="og:image" content="https://aloooooooo25.github.io/Calculadora/og-image.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Calculadora de Juros Compostos - Completa",
+    "url":"https://aloooooooo25.github.io/Calculadora/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "publisher":{"@type":"Organization","name":"RMT"},
+    "description":"Simule juros compostos com aportes mensais, taxa mensal ou anual, gráficos e tabela detalhada."
+  }
+  </script>
+
+  <!-- (Opcional) AdSense
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=SEU_CLIENT_ID" crossorigin="anonymous"></script>
+  -->
+
+  <!-- Lib de gráficos -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-    :root { --navy:#0b1e3d; --navy-2:#0f294f; --green:#00b37e; --green-2:#009368; --bg:#0b1220; --card:#0f1930; --card-2:#0c1528; --text:#e6edf3; --muted:#a8b3c7; --border:#1d2b49; --shadow:0 10px 30px rgba(0,0,0,.35); }
+    :root { --navy:#0b1e3d; --navy-2:#0f294f; --green:#00b37e; --green-2:#00a070; --bg:#0b1220; --card:#0f1930; --card-2:#0c1528; --text:#e6edf3; --muted:#a8b3c7; --border:#1d2b49; --shadow:0 10px 30px rgba(0,0,0,.35); }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:radial-gradient(1200px 800px at 10% 0%,#0f1a30 0%,#0b1220 50%,#0b1220 100%);color:var(--text)}
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(11,18,32,.92),rgba(11,18,32,.6));border-bottom:1px solid var(--border)}
@@ -25,7 +59,7 @@
     @media (max-width:700px){.form-grid{grid-template-columns:1fr}}
     .field{display:flex;flex-direction:column;gap:8px}
     .label{font-size:13px;color:var(--muted)}
-    input,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card-2);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
+    input[type=number],select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card-2);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
     input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,179,126,.18)}
     .actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid var(--border);background:var(--card-2);color:var(--text);padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:700;transition:transform .05s,background .2s,border .2s}
@@ -47,7 +81,6 @@
     td:first-child,th:first-child{text-align:left}
     .table-wrap{max-height:340px;overflow:auto;border:1px solid var(--border);border-radius:12px}
     .notice{color:var(--muted);font-size:13px}
-    #errorBox{margin:12px 0 0 0;padding:10px;border-radius:8px;background:#3a1212;border:1px solid #5c1e1e;color:#ffd7d7;display:none}
   </style>
 </head>
 <body>
@@ -56,66 +89,35 @@
       <div class="logo"><span>RMT</span></div>
       <div>
         <div class="brand-title">RMT</div>
-        <div class="brand-sub">Calculadora de Juros Compostos</div>
+        <div class="brand-sub">Calculadora de Juros Compostos - Completa</div>
       </div>
     </div>
   </header>
 
   <main>
     <div class="grid">
+      <!-- Texto de apresentação (ajuda o SEO) -->
+      <section class="card">
+        <div class="body">
+          <h1 style="margin:0 0 8px 0">Calculadora de Juros Compostos - Completa</h1>
+          <p style="margin:0">Simule seus investimentos com precisão: informe valor inicial, aportes mensais, taxa ao mês ou ao ano e período em meses/anos. Veja gráficos de evolução, composição (juros x capital) e uma tabela mês a mês. Ferramenta gratuita da <strong>RMT</strong>.</p>
+        </div>
+      </section>
+
+      <!-- Calculadora -->
       <section class="card">
         <div class="head"><h2>Parâmetros</h2></div>
         <div class="body">
           <div class="form-grid">
-            <!-- Campos com máscara de moeda -->
-            <div class="field">
-              <label class="label" for="valorInicial">Valor inicial (R$)</label>
-              <input id="valorInicial" type="text" inputmode="decimal" placeholder="R$ 0,00">
-            </div>
-            <div class="field">
-              <label class="label" for="aporteMensal">Aporte mensal (R$)</label>
-              <input id="aporteMensal" type="text" inputmode="decimal" placeholder="R$ 0,00">
-            </div>
-
-            <div class="field">
-              <label class="label" for="taxa">Taxa de juros (%)</label>
-              <input id="taxa" type="number" inputmode="decimal" min="0" step="0.0001" placeholder="Ex: 1">
-            </div>
-            <div class="field">
-              <label class="label" for="taxaTipo">Tipo da taxa</label>
-              <select id="taxaTipo">
-                <option value="mes">ao mês</option>
-                <option value="ano">ao ano</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label class="label" for="periodo">Período</label>
-              <input id="periodo" type="number" inputmode="numeric" min="1" step="1" value="12">
-            </div>
-            <div class="field">
-              <label class="label" for="periodoTipo">Tipo de período</label>
-              <select id="periodoTipo">
-                <option value="meses">Meses</option>
-                <option value="anos">Anos</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label class="label" for="momentoAporte">Momento do aporte</label>
-              <select id="momentoAporte">
-                <option value="fim">Ao fim do mês (padrão)</option>
-                <option value="inicio">No início do mês</option>
-              </select>
-            </div>
+            <div class="field"><label class="label" for="valorInicial">Valor inicial (R$)</label><input id="valorInicial" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex: 1000"></div>
+            <div class="field"><label class="label" for="aporteMensal">Aporte mensal (R$)</label><input id="aporteMensal" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex: 200"></div>
+            <div class="field"><label class="label" for="taxa">Taxa de juros (%)</label><input id="taxa" type="number" inputmode="decimal" min="0" step="0.0001" placeholder="Ex: 1"></div>
+            <div class="field"><label class="label" for="taxaTipo">Tipo da taxa</label><select id="taxaTipo"><option value="mes">ao mês</option><option value="ano">ao ano</option></select></div>
+            <div class="field"><label class="label" for="periodo">Período</label><input id="periodo" type="number" inputmode="numeric" min="1" step="1" value="12"></div>
+            <div class="field"><label class="label" for="periodoTipo">Tipo de período</label><select id="periodoTipo"><option value="meses">Meses</option><option value="anos">Anos</option></select></div>
+            <div class="field"><label class="label" for="momentoAporte">Momento do aporte</label><select id="momentoAporte"><option value="fim">Ao fim do mês (padrão)</option><option value="inicio">No início do mês</option></select></div>
           </div>
-
-          <div class="actions">
-            <button class="btn success" id="btnCalcular" type="button">Calcular</button>
-            <button class="btn danger" id="btnLimpar" type="button">Limpar</button>
-          </div>
-
-          <div id="errorBox"></div>
+          <div class="actions"><button class="btn success" id="btnCalcular">Calcular</button><button class="btn danger" id="btnLimpar">Limpar</button></div>
 
           <div style="height:12px"></div>
           <div class="sum-grid">
@@ -137,239 +139,170 @@
             </table>
           </div>
 
-          <div class="actions" style="margin-top:10px"><button class="btn" id="btnCsv" type="button">Baixar CSV</button></div>
+          <div class="actions" style="margin-top:10px"><button class="btn" id="btnCsv">Baixar CSV</button></div>
           <div class="notice">Conversão anual→mensal: <code>(1 + i_a)^(1/12) - 1</code>. Valores ilustrativos (ignoram taxas/IR).</div>
         </div>
       </section>
 
-      <!-- EXPLICAÇÃO / AJUDA -->
+      <!-- Explicação / SEO extra -->
       <section class="card">
         <div class="head"><h2>Como usar e como funciona</h2></div>
         <div class="body">
           <h3 style="margin:0 0 8px 0">Passo a passo</h3>
           <ol style="margin:0 0 14px 18px; padding:0">
-            <li>Informe o <strong>Valor inicial</strong> (quanto você já tem).</li>
-            <li>Opcional: informe o <strong>Aporte mensal</strong> (quanto investe todo mês).</li>
-            <li>Preencha a <strong>Taxa de juros</strong> e escolha se é <em>ao mês</em> ou <em>ao ano</em>.</li>
-            <li>Defina o <strong>Período</strong> e se está em <em>meses</em> ou <em>anos</em>.</li>
-            <li>Escolha o <strong>Momento do aporte</strong>: <em>início</em> (aporta e já rende no mesmo mês) ou <em>fim</em> (rende e aporta depois).</li>
+            <li>Informe o <strong>Valor inicial</strong>.</li>
+            <li>(Opcional) <strong>Aporte mensal</strong>.</li>
+            <li>Defina a <strong>Taxa de juros</strong> e se é <em>ao mês</em> ou <em>ao ano</em>.</li>
+            <li>Escolha o <strong>Período</strong> em <em>meses</em> ou <em>anos</em>.</li>
+            <li>Selecione <strong>Momento do aporte</strong>: <em>início</em> (aporta e rende no mês) ou <em>fim</em> (rende e aporta depois).</li>
             <li>Clique em <strong>Calcular</strong>.</li>
           </ol>
 
           <h3 style="margin:10px 0 8px 0">O que a calculadora faz</h3>
           <ul style="margin:0 0 14px 18px; padding:0">
-            <li>Converte taxa <em>ao ano</em> para <em>efetiva mensal</em>: <code>(1 + i_anual)^(1/12) - 1</code>.</li>
-            <li>Simula mês a mês com capitalização composta.</li>
-            <li>Mostra <strong>Montante final</strong>, <strong>Total investido</strong>, <strong>Juros acumulados</strong>, além dos gráficos e da tabela mês a mês.</li>
+            <li>Converte taxa anual para efetiva mensal: <code>(1 + i_anual)^(1/12) - 1</code>.</li>
+            <li>Simula capitalização composta mês a mês.</li>
+            <li>Permite aporte no início ou no fim do mês.</li>
+            <li>Exibe montante, total investido, juros, gráficos e tabela.</li>
           </ul>
 
-          <h3 style="margin:10px 0 8px 0">Fórmulas (resumo)</h3>
-          <div class="notice">
-            <div>Taxa efetiva mensal: <code>i_m = (1 + i_a)^(1/12) - 1</code></div>
-            <div>Aporte no <em>início</em>: <code>saldo = (saldo + aporte) × (1 + i_m)</code></div>
-            <div>Aporte no <em>fim</em>: <code>saldo = saldo × (1 + i_m) + aporte</code></div>
-          </div>
+          <h3 style="margin:10px 0 8px 0">Exemplo rápido</h3>
+          <p class="notice" style="margin:0 0 8px 0">
+            Valor inicial R$ 1.000, taxa 1% ao mês, 1 mês, sem aporte → Montante: R$ 1.010,00.<br>
+            Com aporte de R$ 100 <em>no início</em> → Montante: R$ 1.111,00.<br>
+            Com aporte de R$ 100 <em>no fim</em> → Montante: R$ 1.110,00.
+          </p>
+
+          <h3 style="margin:10px 0 8px 0">Limitações</h3>
+          <ul style="margin:0 0 0 18px; padding:0">
+            <li>Não considera taxas, impostos (IR) ou variação de taxa.</li>
+            <li>Valores estimativos para fins educacionais.</li>
+          </ul>
         </div>
       </section>
-
     </div>
   </main>
 
   <script>
-  (function(){
-    // ===== UI / Erros =====
-    const showError = (msg) => {
-      const box = document.getElementById('errorBox');
-      if (!box) return;
-      box.style.display = 'block';
-      box.textContent = 'Erro: ' + msg;
-      console.error(msg);
-    };
-    window.addEventListener('error', (e) => showError(e.message || e.error));
+  document.addEventListener('DOMContentLoaded', () => {
+    const $=(s)=>document.querySelector(s);
+    const brl=(v)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
 
-    const $  = (s)=>document.querySelector(s);
-    const brl = (v)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
-    const round2 = (x)=> Math.round((x + Number.EPSILON) * 100) / 100;
-
-    // ===== Máscara de moeda =====
-    function digitsOnly(str){ return (str||'').toString().replace(/\D+/g,''); }
-    function maskCurrencyInput(el){
-      let d = digitsOnly(el.value);
-      if (d.length === 0){ el.value = ''; return; }
-      el.value = brl(Number(d)/100);
-    }
-    function parseCurrency(el){
-      const d = digitsOnly(el.value);
-      return d ? Number(d)/100 : 0;
-    }
-    ['valorInicial','aporteMensal'].forEach(id=>{
-      const input = document.getElementById(id);
-      if (!input) return;
-      input.addEventListener('input', ()=>maskCurrencyInput(input));
-      input.addEventListener('blur',  ()=>maskCurrencyInput(input));
-    });
-
-    // ===== Seletores =====
     let lineChart, pieChart;
-    const el = {
-      valorInicial: $('#valorInicial'),
-      aporteMensal: $('#aporteMensal'),
-      taxa: $('#taxa'),
-      taxaTipo: $('#taxaTipo'),
-      periodo: $('#periodo'),
-      periodoTipo: $('#periodoTipo'),
-      momentoAporte: $('#momentoAporte'),
-      outMontante: $('#outMontante'),
-      outInvestido: $('#outInvestido'),
-      outJuros: $('#outJuros'),
-      outMeses: $('#outMeses'),
-      tbody: $('#tbody'),
-      btnCalcular: $('#btnCalcular'),
-      btnLimpar: $('#btnLimpar'),
-      btnCsv: $('#btnCsv')
+    const el={
+      valorInicial:$('#valorInicial'), aporteMensal:$('#aporteMensal'),
+      taxa:$('#taxa'), taxaTipo:$('#taxaTipo'),
+      periodo:$('#periodo'), periodoTipo:$('#periodoTipo'),
+      momentoAporte:$('#momentoAporte'),
+      outMontante:$('#outMontante'), outInvestido:$('#outInvestido'),
+      outJuros:$('#outJuros'), outMeses:$('#outMeses'),
+      tbody:$('#tbody'),
+      btnCalcular:$('#btnCalcular'), btnLimpar:$('#btnLimpar'), btnCsv:$('#btnCsv')
     };
 
     const efetivaMensal=(taxa,tipo)=>{
-      const i = (parseFloat(taxa||'0') || 0) / 100;
-      if (!i) return 0;
-      return tipo === 'ano' ? Math.pow(1+i, 1/12) - 1 : i;
+      const i=parseFloat(taxa||0)/100;
+      if(!i) return 0;
+      return tipo==='ano' ? Math.pow(1+i,1/12)-1 : i;
     };
 
-    function buildHist(pv, aport, n, i, inicio){
-      pv    = round2(pv);
-      aport = round2(aport);
-      let saldo = pv;
-      const hist = [{mes:0, saldoIni: pv, aporte: 0, jurosMes: 0, saldoFim: pv}];
+    function calcular(){
+      const pv=parseFloat(el.valorInicial.value)||0;
+      const aport=parseFloat(el.aporteMensal.value)||0;
+      const nRaw=parseInt(el.periodo.value)||0;
+      const n=(el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
+      const i=efetivaMensal(el.taxa.value, el.taxaTipo.value);
+      const inicio = el.momentoAporte.value==='inicio';
+      if(n<=0 || i<0){ renderResultados(0,0,0,0,[]); return; }
 
-      for (let mes = 1; mes <= n; mes++) {
-        const s0 = saldo;
-        let juros;
-        if (inicio) { saldo = round2(saldo + aport); juros = round2(saldo * i); saldo = round2(saldo + juros); }
-        else        { juros = round2(saldo * i);      saldo = round2(saldo + juros + aport); }
-        hist.push({ mes, saldoIni: round2(s0), aporte: aport, jurosMes: juros, saldoFim: round2(saldo) });
+      let saldo=pv; let totalAportado=pv;
+      const hist=[{mes:0,saldoIni:pv,aporte:0,jurosMes:0,saldoFim:pv}];
+
+      for(let mes=1; mes<=n; mes++){
+        const s0=saldo; let juros;
+        if(inicio){ // aporte entra e já rende
+          saldo += aport;
+          juros = saldo * i;
+          saldo += juros;
+        } else {   // rende e depois entra o aporte
+          juros = saldo * i;
+          saldo += juros + aport;
+        }
+        totalAportado += aport;
+        hist.push({mes, saldoIni:s0, aporte:aport, jurosMes:juros, saldoFim:saldo});
       }
-      return hist;
+
+      renderResultados(saldo, totalAportado, saldo-totalAportado, n, hist);
     }
 
-    function renderResultados(hist){
-      // Deriva tudo do mesmo hist (consistência total)
-      const pv    = hist[0].saldoIni;
-      const aport = hist.length>1 ? hist[1].aporte : 0;
-      const n     = hist.length-1;
-
-      const montante  = hist.at(-1).saldoFim;
-      const investido = round2(pv + aport * n);
-      const juros     = round2(montante - investido);
-
-      // Cartões
-      el.outMontante.textContent = brl(montante);
-      el.outInvestido.textContent = brl(investido);
-      el.outJuros.textContent = brl(juros);
-      el.outMeses.textContent = n ? `${n} mês(es)` : '—';
-
-      // Tabela
-      el.tbody.innerHTML = hist.slice(0,480).map(r =>
+    function renderResultados(montante, investido, juros, n, hist){
+      el.outMontante.textContent=brl(montante);
+      el.outInvestido.textContent=brl(investido);
+      el.outJuros.textContent=brl(juros);
+      el.outMeses.textContent=n?`${n} mês(es)`:'—';
+      el.tbody.innerHTML=hist.slice(0,480).map(r=>
         `<tr><td>${r.mes}</td><td>${brl(r.saldoIni)}</td><td>${brl(r.aporte)}</td><td>${brl(r.jurosMes)}</td><td>${brl(r.saldoFim)}</td></tr>`
       ).join('');
 
-      // Séries do gráfico (linhas 100% compatíveis com os cartões)
-      const labels = hist.map(r=>r.mes);
-      const montanteSerie  = hist.map(r=>r.saldoFim);
-      const investidoSerie = hist.map(r=> round2(pv + aport * r.mes));
-      const jurosSerie     = montanteSerie.map((m,idx)=> round2(m - investidoSerie[idx]));
-
-      try {
-        if (lineChart) lineChart.destroy();
-        const ctx1 = document.getElementById('evolucaoChart');
-        if (window.Chart && ctx1) {
-          lineChart = new Chart(ctx1, {
-            type:'line',
-            data:{
-              labels,
-              datasets:[
-                { label:'Montante total', data: montanteSerie,  fill:false },
-                { label:'Total investido', data: investidoSerie, fill:false },
-                { label:'Juros acumulados', data: jurosSerie,    fill:false }
-              ]
-            },
-            options:{ responsive:true, plugins:{ legend:{ display:true, position:'top' } } }
-          });
-        }
-      } catch(e) {}
-
-      try {
-        if (pieChart) pieChart.destroy();
-        const ctx2 = document.getElementById('composicaoChart');
-        if (window.Chart && ctx2) {
-          pieChart = new Chart(ctx2, {
-            type:'doughnut',
-            data:{ labels:['Total investido','Juros'], datasets:[{ data:[Math.max(0, investido), Math.max(0, juros)] }] },
-            options:{ responsive:true, plugins:{ legend:{ position:'bottom' } } }
-          });
-        }
-      } catch(e) {}
+      try{
+        const labels=hist.map(r=>r.mes), data=hist.map(r=>r.saldoFim);
+        if(lineChart) lineChart.destroy();
+        lineChart=new Chart($('#evolucaoChart'),{
+          type:'line',
+          data:{labels,datasets:[{label:'Evolução do montante',data,fill:true}]},
+          options:{responsive:true,plugins:{legend:{display:true}}}
+        });
+      }catch(e){}
+      try{
+        if(pieChart) pieChart.destroy();
+        pieChart=new Chart($('#composicaoChart'),{
+          type:'doughnut',
+          data:{labels:['Total investido','Juros'],datasets:[{data:[Math.max(0,investido),Math.max(0,juros)]}]},
+          options:{responsive:true,plugins:{legend:{position:'bottom'}}}
+        });
+      }catch(e){}
     }
 
-    function calcular(){
-      try {
-        const pv     = parseCurrency(el.valorInicial);
-        const aport  = parseCurrency(el.aporteMensal);
-        const nRaw   = parseInt(el.periodo.value || '0', 10) || 0;
-        const n      = (el.periodoTipo.value === 'anos') ? nRaw * 12 : nRaw;
-        const i      = efetivaMensal(el.taxa.value, el.taxaTipo.value);
-        const inicio = el.momentoAporte.value === 'inicio';
-
-        const hist = (n > 0 && i >= 0) ? buildHist(pv, aport, n, i, inicio)
-                                       : [{mes:0,saldoIni:0,aporte:0,jurosMes:0,saldoFim:0}];
-        renderResultados(hist);
-      } catch(err) {
-        showError(err && (err.message || String(err)));
-      }
-    }
-
-    const toCsv = (hist) => {
-      const header = ['Mes','SaldoInicial','Aporte','JurosMes','SaldoFinal'];
-      const rows = hist.map(r => [
-        r.mes,
-        round2(r.saldoIni).toFixed(2),
-        round2(r.aporte).toFixed(2),
-        round2(r.jurosMes).toFixed(2),
-        round2(r.saldoFim).toFixed(2)
-      ]);
-      return [header, ...rows].map(r => r.join(',')).join('\n');
+    // CSV
+    const toCsv=(hist)=>{
+      const header=['Mes','SaldoInicial','Aporte','JurosMes','SaldoFinal'];
+      const rows=hist.map(r=>[r.mes,r.saldoIni,r.aporte,r.jurosMes,r.saldoFim]);
+      return [header,...rows].map(r=>r.join(',')).join('\n');
     };
 
-    // Eventos
-    if (el.btnCalcular) el.btnCalcular.addEventListener('click', calcular);
-    if (el.btnLimpar) el.btnLimpar.addEventListener('click', () => {
-      el.valorInicial.value = '';
-      el.aporteMensal.value = '';
-      ['taxa','periodo'].forEach(id => { const x = document.getElementById(id); if (x) x.value = ''; });
-      if (el.taxaTipo) el.taxaTipo.value = 'mes';
-      if (el.periodoTipo) el.periodoTipo.value = 'meses';
-      const m = document.getElementById('momentoAporte'); if (m) m.value = 'fim';
-      renderResultados([{mes:0,saldoIni:0,aporte:0,jurosMes:0,saldoFim:0}]);
-      const box = document.getElementById('errorBox'); if (box){ box.style.display='none'; box.textContent=''; }
-    });
-    if (el.btnCsv) el.btnCsv.addEventListener('click', () => {
-      const pv     = parseCurrency(el.valorInicial),
-            aport  = parseCurrency(el.aporteMensal),
-            nRaw   = parseInt(el.periodo.value || '0', 10) || 0,
-            n      = (el.periodoTipo.value === 'anos') ? nRaw * 12 : nRaw,
-            i      = efetivaMensal(el.taxa.value, el.taxaTipo.value),
-            inicio = document.getElementById('momentoAporte')?.value === 'inicio';
-      const hist = buildHist(pv, aport, n, i, inicio);
-      const csv  = toCsv(hist);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url  = URL.createObjectURL(blob);
-      const a    = document.createElement('a');
-      a.href = url; a.download = 'tabela-juros-compostos.csv'; a.click();
-      URL.revokeObjectURL(url);
+    el.btnCalcular.addEventListener('click', calcular);
+    el.btnLimpar.addEventListener('click', ()=>{
+      ['valorInicial','aporteMensal','taxa','periodo'].forEach(id=>document.getElementById(id).value='');
+      el.taxaTipo.value='mes'; el.periodoTipo.value='meses'; document.getElementById('momentoAporte').value='fim';
+      renderResultados(0,0,0,0,[]);
     });
 
-    // Estado inicial
-    renderResultados([{mes:0,saldoIni:0,aporte:0,jurosMes:0,saldoFim:0}]);
-  })();
+    el.btnCsv.addEventListener('click', ()=>{
+      const pv=parseFloat(el.valorInicial.value)||0;
+      const aport=parseFloat(el.aporteMensal.value)||0;
+      const nRaw=parseInt(el.periodo.value)||0;
+      const n=(el.periodoTipo.value==='anos')? nRaw*12 : nRaw;
+      const i=efetivaMensal(el.taxa.value, el.taxaTipo.value);
+      const inicio=document.getElementById('momentoAporte').value==='inicio';
+
+      let saldo=pv;
+      const hist=[{mes:0,saldoIni:pv,aporte:0,jurosMes:0,saldoFim:pv}];
+
+      for(let mes=1; mes<=n; mes++){
+        const s0=saldo; let j;
+        if(inicio){ saldo+=aport; j=saldo*i; saldo+=j; }
+        else { j=saldo*i; saldo+=j+aport; }
+        hist.push({mes, saldoIni:s0, aporte:aport, jurosMes:j, saldoFim:saldo});
+      }
+
+      const csv=toCsv(hist);
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download='tabela-juros-compostos.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+  });
   </script>
 </body>
 </html>
